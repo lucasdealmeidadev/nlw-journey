@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "NLW Jorney",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

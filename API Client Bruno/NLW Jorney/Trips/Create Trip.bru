@@ -1,0 +1,25 @@
+meta {
+  name: Create Trip
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3333/trips
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "destination": "Lins",
+    "starts_at": "2024-07-18 20:00:00",
+    "ends_at": "2024-07-31 20:00:00",
+    "owner_name": "Lucas de Almeida",
+    "owner_email": "lucas@gmail.com",
+    "emails_to_invite": [
+      "matheus@gmail.com",
+      "joao@gmail.com"
+    ]
+  }
+}
