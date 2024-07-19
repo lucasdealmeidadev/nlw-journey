@@ -1,0 +1,19 @@
+meta {
+  name: Update Trip
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3333/trips/01972801-1073-497a-ba3b-97235605b317
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "destination": "Lins",
+    "starts_at": "2024-07-19 20:00:00",
+    "ends_at": "2024-07-30 20:00:00"
+  }
+}
