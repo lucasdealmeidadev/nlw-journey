@@ -4,23 +4,25 @@ import { z } from "zod";
 import { ClientError } from "../errors/client-error";
 import { prisma } from "../lib/prisma";
 
-export async function createLink(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post('/trips/:tripId/links', {
+export async function getTripDatails(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().get('/trips/:tripId', {
     schema: {
       params: z.object({
         tripId: z.string().uuid()
-      }),
-      body: z.object({
-        title: z.string().min(4),
-        url: z.string().url()
       })
     }
   },
     async (request) => {
       const { tripId } = request.params;
-      const { title, url } = request.body;
 
       const trip = await prisma.trip.findUnique({
+        select: {
+          id: true,
+          destination: true,
+          starts_at: true,
+          ends_at: true,
+          is_confirmed: true
+        },
         where: { id: tripId }
       });
 
@@ -28,15 +30,6 @@ export async function createLink(app: FastifyInstance) {
         throw new ClientError('Trip not found.');
       }
 
-      const link = await prisma.link.create({
-        select: { id: true },
-        data: {
-          title,
-          url,
-          trip_id: tripId
-        }
-      });
-
-      return { linkId: link.id };
+      return { trip };
     });
 }
